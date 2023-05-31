@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import About from "./componant/About";
+import Navbar from "./componant/Navbar";
+// import Textform from "./componant/Textform";
+// import React, { useState } from 'react';
+// import Alert from "./componant/Alert";
 
 function App() {
+  const [mode, setmode] = useState("light");
+  const [Alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type,
+    });
+  };
+
+  const toggelemode = () => {
+    if (mode === "light") {
+      setmode("dark");
+      document.body.Style.backgroundColor = "black";
+      showAlert("Dark mode has been enable", "succes");
+    } else {
+      setmode("light");
+      document.body.Style.backgroundColor = "white";
+      showAlert("light mode has been enable", "succes");
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar titel="Textnuten" mode={mode} toggelemode={toggelemode} />
+      <div className="container">
+        <Alert alert="{alert}" />
+        {/* <Textform heading="inter the text to analysis" mode={mode} /> */}
+        <About />
+      </div>
+    </>
   );
 }
 
